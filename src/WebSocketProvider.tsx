@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { WebSocketContext } from './WebSocketContext';
 
-const SOCKET_URL = 'http://192.168.1.163:3000'; // Change if needed
+const SOCKET_URL = 'http://localhost:3002'; // Change if needed
 
 export interface Message {
 	chatroomId: string;
