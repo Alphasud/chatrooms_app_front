@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { WebSocketContext } from './WebSocketContext';
+import { useAtom } from 'jotai';
+import { usernameAtom } from './atoms/usernameAtom';
 
-const SOCKET_URL = 'http://localhost:3002'; // Change if needed
+const SOCKET_URL = 'http://localhost:3002';
 
 export interface Message {
 	chatroomId: string;
@@ -13,6 +15,17 @@ export interface Message {
 	id?: string;
 }
 
+export interface Chatroom {
+	chatroomId: string;
+	users: string[];
+	lastActiveAt: Date;
+}
+
+export interface User {
+	username: string;
+	chatroomId: string;
+}
+
 // WebSocket Provider component
 interface WebSocketProviderProps {
 	children: React.ReactNode;
@@ -21,109 +34,79 @@ interface WebSocketProviderProps {
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 	children,
 }) => {
-	const [socket, setSocket] = useState<Socket | null>(null);
+	const socketRef = useRef<Socket | null>(null);
+	const [username, setUsername] = useAtom(usernameAtom);
 	const [messages, setMessages] = useState<Message[]>([]);
-	const [welcomeMessage, setWelcomeMessage] = useState<string>('');
 	const [isConnected, setIsConnected] = useState<boolean>(false);
-	const [serverUsersList, setServerUsersList] = useState<
-		[
-			{
-				username: string;
-				chatroomId: string;
-			}
-		]
-	>([{ username: '', chatroomId: '' }]);
-	const [chatroomUsersList, setChatroomUsersList] = useState<
-		[
-			{
-				username: string;
-				chatroomId: string;
-			}
-		]
-	>([{ username: '', chatroomId: '' }]);
+	const [serverUsersList, setServerUsersList] = useState<User[]>([]);
+	const [chatroomUsersList, setChatroomUsersList] = useState<User[]>([]);
+	const [chatroomsList, setChatroomsList] = useState<Chatroom[]>([]);
 
 	useEffect(() => {
-		// Create the socket connection once when the provider mounts
 		const newSocket = io(SOCKET_URL, { transports: ['websocket'] });
+		socketRef.current = newSocket; // Store in ref
 
-		newSocket.on('connect', () => {
+		const handleConnected = () => {
 			setIsConnected(true);
-		});
-
-		newSocket.on('welcome', (msg) => {
-			setWelcomeMessage(msg);
-		});
-
-		newSocket.on(
-			'usersList',
-			(
-				usr: [
-					{
-						username: string;
-						chatroomId: string;
-					}
-				]
-			) => {
-				console.log('usersList', usr);
-				setServerUsersList(usr); // Update the total users count
+			if (!username) {
+				const generatedUsername =
+					newSocket.id?.substring(2, 15) ||
+					Math.random().toString(36).substring(2, 15);
+				setUsername(generatedUsername);
+				localStorage.setItem('usernameChatApp', generatedUsername);
 			}
-		);
+		};
 
-		newSocket.on(
-			'chatroomsUsersList',
-			(
-				usr: [
-					{
-						username: string;
-						chatroomId: string;
-					}
-				]
-			) => {
-				setChatroomUsersList(usr); // Update the total users count
-			}
-		);
-
-		// Listen for "previousMessages" in case you want to load past messages when joining a chatroom
-		newSocket.on('previousMessages', (messages: Message[]) => {
-			setMessages(messages); // Overwrite the messages with the previous ones
-		});
-
+		// Register event listeners
+		newSocket.on('connected', handleConnected);
+		newSocket.on('usersList', setServerUsersList);
+		newSocket.on('chatroomsUsersList', setChatroomUsersList);
+		newSocket.on('chatroomsList', setChatroomsList);
+		newSocket.on('previousMessages', setMessages);
 		newSocket.on('receiveMessage', (msg: Message) => {
 			setMessages((prev) => [...prev, msg]);
 		});
-
-		newSocket.on('disconnect', () => {
-			setIsConnected(false);
-		});
-
-		setSocket(newSocket);
+		newSocket.on('disconnect', () => setIsConnected(false));
 
 		return () => {
+			newSocket.off('connected', handleConnected);
+			newSocket.off('usersList', setServerUsersList);
+			newSocket.off('chatroomsUsersList', setChatroomUsersList);
+			newSocket.off('chatroomsList', setChatroomsList);
+			newSocket.off('previousMessages', setMessages);
+			newSocket.off('receiveMessage');
+			newSocket.off('disconnect');
 			newSocket.disconnect();
 		};
 	}, []);
 
-	const sendMessage = ({ chatroomId, username, text }: Message) => {
-		if (socket) {
-			socket.emit('sendMessage', {
-				chatroomId,
-				username,
-				text,
-				createdAt: new Date(),
+	useEffect(() => {
+		if (username && socketRef.current) {
+			socketRef.current.emit('updateUsernameInUsersList', {
+				newUsername: username,
 			});
 		}
+	}, [username]);
+
+	const sendMessage = ({ chatroomId, username, text }: Message) => {
+		socketRef.current?.emit('sendMessage', {
+			chatroomId,
+			username,
+			text,
+			createdAt: new Date(),
+		});
 	};
 
 	return (
 		<WebSocketContext.Provider
 			value={{
-				socket,
+				socket: socketRef.current,
 				messages,
-				welcomeMessage,
 				isConnected,
 				serverUsersList,
 				chatroomUsersList,
 				sendMessage,
+				chatroomsList,
 			}}
 		>
 			{children}

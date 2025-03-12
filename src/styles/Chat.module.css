@@ -1,0 +1,70 @@
+.welcome_title {
+	margin-top: 1rem;
+	font-size: 1.5rem;
+	font-weight: 500;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+.input {
+	background-color: transparent;
+	border: 2px solid #242424;
+	border-radius: 5px;
+	color: #242424;
+	font-size: 0.75rem;
+	padding: 0.25rem;
+	font-style: italic;
+	width: 90%;
+	outline: none;
+}
+.chatrooms {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	width: 100%;
+	gap: 3rem;
+}
+.create_chatroom {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+	gap: 0.5rem;
+	width: 90%;
+}
+.chatrooms_list {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	width: 100%;
+}
+.chatroom_element {
+	padding: 0.5rem;
+	border: 2px solid #242424;
+	border-radius: 5px;
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: bold;
+}
+.chatroom_element:hover {
+	background-color: #242424;
+	color: white;
+	cursor: pointer;
+}
+.last_active {
+	font-weight: 400;
+	font-size: 0.75rem;
+	font-style: italic;
+}
+.button_create {
+	background-color: #242424;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 0.25rem;
+	font-weight: bold;
+	cursor: pointer;
+}

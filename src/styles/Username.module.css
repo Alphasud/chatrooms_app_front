@@ -1,0 +1,6 @@
+.username {
+	display: flex;
+}
+.edit_username:hover {
+	cursor: pointer;
+}

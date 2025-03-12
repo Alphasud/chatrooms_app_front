@@ -1,25 +1,15 @@
 import { createContext } from 'react';
 import { Socket } from 'socket.io-client';
-import { Message } from './WebSocketProvider';
+import { Chatroom, Message, User } from './WebSocketProvider';
 
 interface WebSocketContextType {
 	socket: Socket | null;
 	isConnected: boolean;
 	messages: Message[];
-	welcomeMessage: string;
-	serverUsersList: [
-		{
-			username: string;
-			chatroomId: string;
-		}
-	];
-	chatroomUsersList: [
-		{
-			username: string;
-			chatroomId: string;
-		}
-	];
+	serverUsersList: User[];
+	chatroomUsersList: User[];
 	sendMessage: (message: Message) => void;
+	chatroomsList: Chatroom[];
 }
 
 // Create the WebSocket context with a default value
