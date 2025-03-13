@@ -1,7 +1,7 @@
 .username {
 	display: flex;
 	gap: 0.25rem;
-	width: 15.5rem;
+	min-width: 15.5rem;
 	height: 100%;
 	background-color: beige;
 	justify-content: center;
@@ -11,6 +11,7 @@
 	color: #242424;
 	font-weight: bold;
 	font-style: italic;
+	padding: 0 0.5rem;
 }
 .edit_username {
 	color: #242424;

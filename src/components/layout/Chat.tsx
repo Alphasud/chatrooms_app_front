@@ -56,52 +56,106 @@ const Chat: React.FC = () => {
 
 	return (
 		<div className="chatroom">
-			<h2>💬 Chatroom {chatroomId}</h2>
-			<button onClick={handleLeave}>Leave ❌</button>
-			<div
-				style={{
-					border: '1px solid black',
-					height: '200px',
-					overflowY: 'auto',
-					padding: '10px',
-					display: 'flex',
-					flexDirection: 'column',
-				}}
-			>
-				<div>Welcome</div>
+			<div className={styles.header}>
+				<h2 className={styles.title}>💬 {chatroomId}</h2>
+				<button className={styles.button_leave} onClick={handleLeave}>
+					❌
+				</button>
+			</div>
+			<div className={styles.messages_container}>
+				{messages.map((msg, index) => {
+					const isLastInSequence =
+						index === messages.length - 1 ||
+						messages[index + 1].username !== msg.username;
 
-				{messages.length === 0 && <div>No messages yet</div>}
-				{messages.map((msg, index) => (
-					<div
-						key={index}
-						style={{
-							alignSelf:
+					return (
+						<div
+							key={index}
+							className={`${styles.message_wrapper} ${
 								msg.username === username
-									? 'flex-end'
-									: 'flex-start',
-						}}
-					>
-						<strong>
-							{msg.username === username ? 'You' : msg.username}:{' '}
-						</strong>
-						{msg.text}
-					</div>
-				))}
+									? styles.message_wrapper_you
+									: msg.username === 'System'
+									? styles.message_wrapper_system
+									: styles.message_wrapper_other
+							}`}
+							style={{
+								marginBottom: isLastInSequence
+									? '1rem'
+									: '0.15rem',
+							}}
+						>
+							{/* Show avatar only if it's the last message in sequence */}
+							{msg.username !== 'System' && isLastInSequence && (
+								<div
+									className={`${styles.message_avatar} ${
+										msg.username === username
+											? styles.message_avatar_you
+											: styles.message_avatar_other
+									}`}
+								>
+									{msg.username.charAt(0).toUpperCase()}
+								</div>
+							)}
+							<div
+								className={`${styles.message_bubble} ${
+									msg.username === username
+										? styles.message_bubble_you
+										: msg.username === 'System'
+										? styles.message_system
+										: styles.message_bubble_other
+								}`}
+							>
+								{msg.text}
+								{msg.username !== 'System' && (
+									<div className={styles.message_timestamp}>
+										{msg.createdAt
+											? new Date(
+													msg.createdAt
+											  ).toLocaleTimeString()
+											: ''}
+									</div>
+								)}
+							</div>
+						</div>
+					);
+				})}
 				<div ref={messagesEndRef} />
 			</div>
-			<input
-				className={styles.input}
-				type="text"
-				value={input}
-				onChange={(e) => setInput(e.target.value)}
-				style={{ width: '80%' }}
-				onKeyDown={(e) => {
-					if (e.key === 'Enter') {
-						handleSend();
-					}
-				}}
-			/>
-			<button onClick={handleSend}>Send</button>
+			<div className={styles.controls_wrapper}>
+				<input
+					className={styles.input}
+					type="text"
+					value={input}
+					onChange={(e) => setInput(e.target.value)}
+					style={{ width: '80%' }}
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') {
+							handleSend();
+						}
+					}}
+				/>
+				<button
+					className={styles.button_send}
+					style={{ opacity: input.length > 0 ? '1' : '0' }}
+					onClick={handleSend}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						width={24}
+						height={24}
+						strokeWidth={2}
+					>
+						{' '}
+						<path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"></path>{' '}
+						<path d="M6.5 12h14.5"></path>{' '}
+					</svg>
+				</button>
+			</div>
 		</div>
 	);
 };

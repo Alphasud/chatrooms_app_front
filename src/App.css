@@ -64,8 +64,9 @@
 	height: 100%;
 	width: 100%;
 	border: 2px solid beige;
-	grid-column: 2 / 6;
-	grid-row: 2 / 6;
+	border-radius: 10px;
+	grid-column: 2 / 7;
+	grid-row: 2 / 5;
 }
 .users_list {
 	height: 100%;
