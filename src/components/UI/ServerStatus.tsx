@@ -24,15 +24,15 @@ const ServerStatus: React.FC<ServerStatusProps> = ({
 	const userWord = userCount < 2 ? 'user' : 'users';
 
 	return (
-		<span>
+		<div className={styles.server_status}>
 			🟢 Server is on with {userText}{' '}
 			<span
 				onClick={() => setDisplayUsersList(!displayUsersList)}
-				className={styles.server_status}
+				className={styles.server_users}
 			>
 				{userWord}
 			</span>
-		</span>
+		</div>
 	);
 };
 export default ServerStatus;

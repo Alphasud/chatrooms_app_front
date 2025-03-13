@@ -1,0 +1,12 @@
+.welcome_title {
+	width: 100%;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	font-size: 1rem;
+	font-style: italic;
+	font-weight: 500;
+	margin-bottom: 1rem;
+	text-align: center;
+	background-color: beige;
+	color: #242424;
+}

@@ -32,25 +32,27 @@ const Username: React.FC<UsernameProps> = ({
 		<div className={styles.username}>
 			<p>{getConnectionStatus()}</p>
 			<span
-				className="edit_username"
+				className={styles.edit_username}
 				onClick={() => setEditUsername(true)}
 			>
-				📝
+				(edit)
 			</span>
 			{editUsername && (
 				<Modal
 					show={editUsername}
 					onClose={() => setEditUsername(false)}
 				>
-					<>
-						<input
-							type="text"
-							placeholder="Enter a username"
-							value={usernameEdited}
-							onChange={(e) => setUsernameEdited(e.target.value)}
-							autoFocus
-						/>
+					<input
+						className={styles.edit_input}
+						type="text"
+						placeholder="Enter a username"
+						value={usernameEdited}
+						onChange={(e) => setUsernameEdited(e.target.value)}
+						autoFocus
+					/>
+					<div className={styles.buttons}>
 						<button
+							className={`${styles.button} ${styles.button__okay}`}
 							onClick={() => {
 								setEditUsername(false);
 								setUsername(usernameEdited);
@@ -58,10 +60,13 @@ const Username: React.FC<UsernameProps> = ({
 						>
 							Okay!
 						</button>
-						<button onClick={() => setEditUsername(false)}>
+						<button
+							className={`${styles.button} ${styles.button__cancel}`}
+							onClick={() => setEditUsername(false)}
+						>
 							Cancel
 						</button>
-					</>
+					</div>
 				</Modal>
 			)}
 		</div>

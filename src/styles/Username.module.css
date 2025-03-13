@@ -1,6 +1,72 @@
 .username {
 	display: flex;
+	gap: 0.25rem;
+	width: 15.5rem;
+	height: 100%;
+	background-color: beige;
+	justify-content: center;
+	align-items: center;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	color: #242424;
+	font-weight: bold;
+	font-style: italic;
+}
+.edit_username {
+	color: #242424;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 1rem;
+	animation: glow 1.5s ease-in-out infinite alternate;
 }
 .edit_username:hover {
 	cursor: pointer;
+}
+.edit_input {
+	background-color: transparent;
+	border: 2px solid beige;
+	border-radius: 5px;
+	color: beige;
+	font-size: 0.8rem;
+	padding: 0.25rem;
+	font-style: italic;
+	width: 90%;
+	outline: none;
+}
+.buttons {
+	width: 90%;
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+}
+.button {
+	width: 5rem;
+	background-color: #242424;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 0.25rem;
+	font-size: 0.75rem;
+	font-weight: bold;
+	cursor: pointer;
+}
+.button__cancel {
+	background-color: #ff00dd;
+	color: #00ffbb;
+}
+.button__okay {
+	background-color: #00ffbb;
+	color: #ff00dd;
+}
+
+@keyframes glow {
+	0% {
+		text-shadow: 0 0 1px #fff, 0 0 2px #ff4da6, 0 0 3px #ff4da6;
+	}
+	50% {
+		text-shadow: 0 0 1.5px #fff, 0 0 2px #ff4da6, 0 0 4px #ff4da6;
+	}
+	100% {
+		text-shadow: 0 0 2px #fff, 0 0 3px #e60073, 0 0 4px #e60073;
+	}
 }

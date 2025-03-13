@@ -5,18 +5,24 @@ import { usernameAtom } from '../../atoms/usernameAtom';
 import { useEffect, useState } from 'react';
 import styles from '../../styles/Chat.module.css';
 import ActiveChatCard from '../UI/ActiveChatCard';
+import { Chatroom } from '../../WebSocketProvider';
 
 const ActiveChatrooms = () => {
 	const [username] = useAtom(usernameAtom);
 	const [chatroomId, setChatroomId] = useState('');
 	const { socket, chatroomsList } = useWebSocket();
 	const navigate = useNavigate();
-	const [chatroomsListFiltered, setChatroomsListFiltered] =
-		useState(chatroomsList);
+	const [chatroomsListFiltered, setChatroomsListFiltered] = useState(
+		[] as Chatroom[]
+	);
 
 	useEffect(() => {
 		socket?.emit('getChatroomsList');
 	}, [socket]);
+
+	useEffect(() => {
+		setChatroomsListFiltered(chatroomsList);
+	}, [chatroomsList]);
 
 	// Handle joining a chatroom
 	const handleJoin = (chatroomId: string) => {
@@ -45,6 +51,12 @@ const ActiveChatrooms = () => {
 	};
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		console.log('e.target.value', e.target.value);
+		if (!e.target.value) {
+			setChatroomsListFiltered(chatroomsList);
+			setChatroomId('');
+			return;
+		}
 		setChatroomId(e.target.value);
 		setChatroomsListFiltered(
 			chatroomsList.filter((chatroom) =>
@@ -56,7 +68,7 @@ const ActiveChatrooms = () => {
 	return (
 		<>
 			<div className="active_chatrooms">
-				<h2 className={styles.welcome_title}>Active Chatrooms</h2>
+				<h2 className={styles.welcome_title}>Active Chatrooms:</h2>
 				<div className={styles.chatrooms}>
 					<div className={styles.create_chatroom}>
 						<input
@@ -85,7 +97,9 @@ const ActiveChatrooms = () => {
 						</div>
 					)}
 					{!chatroomsListFiltered.length && (
-						<div>No matching chatrooms</div>
+						<div className={styles.no_match}>
+							No matching chatrooms
+						</div>
 					)}
 				</div>
 			</div>

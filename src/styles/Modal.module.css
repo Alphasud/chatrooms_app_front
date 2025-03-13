@@ -1,5 +1,4 @@
 .modal {
-	display: none;
 	position: fixed;
 	z-index: 1;
 	left: 0;
@@ -8,22 +7,35 @@
 	height: 100%;
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 5;
 }
-.modal-content {
+.modal_content {
+	display: flex;
 	position: relative;
-	background-color: #fefefe;
+	background-color: transparent;
 	margin: 15% auto;
 	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
+	border: 2px solid beige;
+	width: 20%;
+	height: 20%;
 	max-width: 600px;
 	border-radius: 5px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 10;
+}
+.modal_body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+	width: 100%;
 }
 .close {
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: -1rem;
 	padding: 0.5rem;
+	font-size: 2rem;
 	cursor: pointer;
 }

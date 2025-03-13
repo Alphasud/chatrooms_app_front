@@ -32,37 +32,42 @@ const UsersList: React.FC<UserListProps> = ({ username, isConnected }) => {
 		<div className="users_list">
 			{isConnected && (
 				<div
-					className={styles.list}
+					className={styles.list_container}
 					style={{ display: displayUsersList ? 'flex' : 'none' }}
 				>
-					{serverUsersList.map((user, index) => (
-						<div key={index}>
-							<span>{user.username} → </span>
-							{user.chatroomId && (
-								<span
-									style={{
-										color: 'blue',
-										cursor: isUserCurrentInChatroom(
-											user.chatroomId
-										)
-											? 'default'
-											: 'pointer',
-									}}
-									onClick={() =>
-										handleJoinChatroom(
-											user.chatroomId,
-											username || ''
-										)
-									}
-								>
-									in {user.chatroomId}.
-								</span>
-							)}
-							{!user.chatroomId && (
-								<span className={styles.lobby}>in lobby.</span>
-							)}
-						</div>
-					))}
+					<div className={styles.list_title}>Online right now:</div>
+					<div className={styles.list}>
+						{serverUsersList.map((user, index) => (
+							<div key={index}>
+								<span>{user.username} → </span>
+								{user.chatroomId && (
+									<span
+										style={{
+											color: 'blue',
+											cursor: isUserCurrentInChatroom(
+												user.chatroomId
+											)
+												? 'default'
+												: 'pointer',
+										}}
+										onClick={() =>
+											handleJoinChatroom(
+												user.chatroomId,
+												username || ''
+											)
+										}
+									>
+										in {user.chatroomId}.
+									</span>
+								)}
+								{!user.chatroomId && (
+									<span className={styles.lobby}>
+										in lobby.
+									</span>
+								)}
+							</div>
+						))}
+					</div>
 				</div>
 			)}
 		</div>

@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/layout/Home';
+import Lobby from './components/layout/Lobby';
 import ProtectedRoute from './ProtectedRoute';
 import Chat from './components/layout/Chat';
 import MovingGradientBackground from './components/UI/MovingGradientBackground';
@@ -33,7 +33,7 @@ function App() {
 				/>
 				<ActiveChatrooms />
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<Lobby />} />
 					<Route
 						path="/chatroom/:chatroomId"
 						element={<ProtectedRoute />}

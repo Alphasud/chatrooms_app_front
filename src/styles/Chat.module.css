@@ -1,15 +1,20 @@
 .welcome_title {
-	margin-top: 1rem;
-	font-size: 1.5rem;
+	width: 100%;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	font-size: 1rem;
+	font-style: italic;
 	font-weight: 500;
 	margin-bottom: 1rem;
 	text-align: center;
+	background-color: beige;
+	color: #242424;
 }
 .input {
 	background-color: transparent;
-	border: 2px solid #242424;
+	border: 2px solid beige;
 	border-radius: 5px;
-	color: #242424;
+	color: beige;
 	font-size: 0.75rem;
 	padding: 0.25rem;
 	font-style: italic;
@@ -41,7 +46,7 @@
 }
 .chatroom_element {
 	padding: 0.5rem;
-	border: 2px solid #242424;
+	border: 2px solid beige;
 	border-radius: 5px;
 	width: 90%;
 	display: flex;
@@ -60,11 +65,17 @@
 	font-style: italic;
 }
 .button_create {
-	background-color: #242424;
-	color: white;
+	background-color: beige;
+	color: #242424;
 	border: none;
 	border-radius: 5px;
 	padding: 0.25rem;
 	font-weight: bold;
 	cursor: pointer;
+}
+.no_match {
+	font-size: 1rem;
+	font-style: italic;
+	font-weight: bold;
+	color: beige;
 }

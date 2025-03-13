@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ show, children, onClose }) => {
 				<span className={styles.close} onClick={onClose}>
 					&times;
 				</span>
-				{children}
+				<div className={styles.modal_body}>{children}</div>
 			</div>
 		</div>
 	);
