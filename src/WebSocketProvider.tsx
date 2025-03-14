@@ -13,6 +13,7 @@ export interface Message {
 	createdAt?: Date;
 	updatedAt?: Date;
 	id?: string;
+	bubbleColor?: string;
 }
 
 export interface Chatroom {
@@ -24,6 +25,8 @@ export interface Chatroom {
 export interface User {
 	username: string;
 	chatroomId: string;
+	colorScheme: string[];
+	bubbleColor: string;
 }
 
 // WebSocket Provider component

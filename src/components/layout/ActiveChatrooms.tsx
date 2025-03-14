@@ -20,6 +20,15 @@ const ActiveChatrooms = () => {
 		socket?.emit('getChatroomsList');
 	}, [socket]);
 
+	// call chatrooms list every minute to keep it updated
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			socket?.emit('getChatroomsList');
+		}, 60000);
+
+		return () => clearInterval(intervalId);
+	}, [socket]);
+
 	useEffect(() => {
 		setChatroomsListFiltered(chatroomsList);
 	}, [chatroomsList]);
@@ -51,7 +60,6 @@ const ActiveChatrooms = () => {
 	};
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-		console.log('e.target.value', e.target.value);
 		if (!e.target.value) {
 			setChatroomsListFiltered(chatroomsList);
 			setChatroomId('');

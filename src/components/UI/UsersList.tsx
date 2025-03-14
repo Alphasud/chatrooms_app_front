@@ -4,12 +4,12 @@ import animationStyle from '../../styles/Animation.module.css';
 import { useAtom } from 'jotai';
 import { displayUsersListAtom } from '../../atoms/userslistAtom';
 import { useEffect, useState } from 'react';
-import { generateColorFromSeed, stringToHash } from '../../utils';
+import { User } from '../../WebSocketProvider';
 
 interface UserListProps {
 	username: string | null;
 	isConnected: boolean;
-	serverUsersList: { username: string; chatroomId: string }[];
+	serverUsersList: User[];
 }
 
 const UsersList: React.FC<UserListProps> = ({
@@ -18,27 +18,8 @@ const UsersList: React.FC<UserListProps> = ({
 	serverUsersList,
 }) => {
 	const [displayUsersList] = useAtom(displayUsersListAtom);
-	const [serverUsersLisrtWithColors, setServerUsersListWithColors] = useState<
-		{ username: string; chatroomId: string; colors: string[] }[]
-	>([]);
 	const [currentColorIndex, setCurrentColorIndex] = useState(0);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		// Add an array of random colors to the serverUsersList based on the username
-		setServerUsersListWithColors(
-			serverUsersList.map((user) => {
-				// Hash the username to create a unique seed for each user
-				const userSeed = stringToHash(user.username);
-				// Generate multiple random colors for each user based on their unique seed
-				const colors = Array.from(
-					{ length: 10 },
-					(_, index) => generateColorFromSeed(userSeed + index) // Modify seed for each color
-				);
-				return { ...user, colors: colors };
-			})
-		);
-	}, [serverUsersList]);
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
@@ -71,7 +52,7 @@ const UsersList: React.FC<UserListProps> = ({
 				>
 					<div className={styles.list_title}>Online right now:</div>
 					<div className={styles.list}>
-						{serverUsersLisrtWithColors.map((user, index) => {
+						{serverUsersList.map((user, index) => {
 							return (
 								<div
 									className={styles.list_element}
@@ -102,7 +83,7 @@ const UsersList: React.FC<UserListProps> = ({
 											className={styles.chatroom_link}
 											style={{
 												backgroundColor:
-													user.colors[
+													user.colorScheme[
 														currentColorIndex
 													],
 												cursor: isUserCurrentInChatroom(

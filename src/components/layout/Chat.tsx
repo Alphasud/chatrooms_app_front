@@ -17,6 +17,11 @@ const Chat: React.FC = () => {
 		}
 	};
 
+	// Get chatrooms list on mount
+	useEffect(() => {
+		socket?.emit('getChatroomsList');
+	}, [socket]);
+
 	// Use effect to scroll to the bottom whenever messages change
 	useEffect(() => {
 		scrollToBottom();
@@ -28,10 +33,11 @@ const Chat: React.FC = () => {
 		if (!usernameStored) {
 			// if no username, redirect to home
 			navigate('/');
+			socket?.emit('getChatroomsList');
 		} else {
 			setUsername(usernameStored);
 		}
-	}, [navigate]);
+	}, [navigate, socket]);
 
 	const handleSend = () => {
 		if (input.trim() && chatroomId) {
@@ -48,6 +54,7 @@ const Chat: React.FC = () => {
 				if (response?.error) {
 					alert(response.error);
 				} else {
+					socket?.emit('getChatroomsList');
 					navigate('/');
 				}
 			}
@@ -92,6 +99,12 @@ const Chat: React.FC = () => {
 											? styles.message_avatar_you
 											: styles.message_avatar_other
 									}`}
+									style={{
+										backgroundColor:
+											msg.username === 'System'
+												? 'transparent'
+												: msg.bubbleColor,
+									}}
 								>
 									{msg.username.charAt(0).toUpperCase()}
 								</div>
@@ -104,6 +117,12 @@ const Chat: React.FC = () => {
 										? styles.message_system
 										: styles.message_bubble_other
 								}`}
+								style={{
+									backgroundColor:
+										msg.username === 'System'
+											? 'transparent'
+											: msg.bubbleColor,
+								}}
 							>
 								{msg.text}
 								{msg.username !== 'System' && (
