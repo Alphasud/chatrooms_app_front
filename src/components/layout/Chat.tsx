@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useWebSocket } from '../../useWebSocket';
+import { useWebSocket } from '../../hooks/useWebSocket';
 import styles from '../../styles/Chat.module.css';
 
 const Chat: React.FC = () => {

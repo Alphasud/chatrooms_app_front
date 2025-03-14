@@ -50,8 +50,8 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 			setIsConnected(true);
 			if (!username) {
 				const generatedUsername =
-					newSocket.id?.substring(2, 15) ||
-					Math.random().toString(36).substring(2, 15);
+					newSocket.id?.substring(2, 9) ||
+					Math.random().toString(36).substring(2, 9);
 				setUsername(generatedUsername);
 				localStorage.setItem('usernameChatApp', generatedUsername);
 			}

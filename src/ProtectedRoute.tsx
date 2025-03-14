@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Outlet } from 'react-router-dom';
-import { useWebSocket } from './useWebSocket';
+import { useWebSocket } from './hooks/useWebSocket';
 import { useAtom } from 'jotai';
 import { usernameAtom } from './atoms/usernameAtom';
 

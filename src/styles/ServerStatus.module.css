@@ -1,8 +1,9 @@
 .server_status {
 	display: flex;
-	gap: 0.25rem;
-	width: 15.5rem;
+	gap: 0.5rem;
+	min-width: 12.5rem;
 	height: 100%;
+	padding: 0.5rem;
 	background-color: beige;
 	justify-content: center;
 	align-items: center;
@@ -17,18 +18,5 @@
 	font-weight: bold;
 	letter-spacing: 5px;
 	text-decoration: underline;
-	font-size: 1rem; /* Ensure small font size */
-	animation: glow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-	0% {
-		text-shadow: 0 0 1px #fff, 0 0 2px #ff4da6, 0 0 3px #ff4da6;
-	}
-	50% {
-		text-shadow: 0 0 1.5px #fff, 0 0 2px #ff4da6, 0 0 4px #ff4da6;
-	}
-	100% {
-		text-shadow: 0 0 2px #fff, 0 0 3px #e60073, 0 0 4px #e60073;
-	}
+	font-size: 1rem;
 }

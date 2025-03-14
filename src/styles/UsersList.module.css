@@ -38,6 +38,33 @@
 	color: inherit;
 }
 .lobby {
-	color: burlywood;
+	color: rgb(245, 168, 68);
 	font-style: italic;
+	width: 50%;
+	text-align: center;
+	border-radius: 20px;
+	padding: 0.25rem 0.5rem;
+	background-color: beige;
+}
+.list_element {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 5px 0;
+	border-bottom: 1px solid beige;
+}
+.list_username {
+	text-align: center;
+	font-size: 1rem;
+	letter-spacing: 5px;
+}
+.chatroom_link {
+	cursor: pointer;
+	width: 50%;
+	text-align: center;
+	font-style: italic;
+	border-radius: 20px;
+	padding: 0.25rem 0.5rem;
+	color: beige;
 }

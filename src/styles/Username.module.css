@@ -18,7 +18,7 @@
 	font-weight: bold;
 	font-style: italic;
 	font-size: 1rem;
-	animation: glow 1.5s ease-in-out infinite alternate;
+	letter-spacing: 5px;
 }
 .edit_username:hover {
 	cursor: pointer;
@@ -58,16 +58,4 @@
 .button__okay {
 	background-color: #00ffbb;
 	color: #ff00dd;
-}
-
-@keyframes glow {
-	0% {
-		text-shadow: 0 0 1px #fff, 0 0 2px #ff4da6, 0 0 3px #ff4da6;
-	}
-	50% {
-		text-shadow: 0 0 1.5px #fff, 0 0 2px #ff4da6, 0 0 4px #ff4da6;
-	}
-	100% {
-		text-shadow: 0 0 2px #fff, 0 0 3px #e60073, 0 0 4px #e60073;
-	}
 }

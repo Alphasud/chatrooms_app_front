@@ -5,7 +5,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Chat from './components/layout/Chat';
 import MovingGradientBackground from './components/UI/MovingGradientBackground';
 import TopBar from './components/layout/TopBar';
-import { useWebSocket } from './useWebSocket';
+import { useWebSocket } from './hooks/useWebSocket';
 import { useAtom } from 'jotai';
 import { usernameAtom } from './atoms/usernameAtom';
 import ActiveChatrooms from './components/layout/ActiveChatrooms';
@@ -41,7 +41,11 @@ function App() {
 						<Route index element={<Chat />} />
 					</Route>
 				</Routes>
-				<UsersList username={username} isConnected={isConnected} />
+				<UsersList
+					username={username}
+					serverUsersList={serverUsersList}
+					isConnected={isConnected}
+				/>
 				<QRCode currentURL={currentURL} />
 			</main>
 		</Router>

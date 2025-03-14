@@ -1,4 +1,4 @@
-import { useWebSocket } from '../../useWebSocket';
+import { useWebSocket } from '../../hooks/useWebSocket';
 import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { usernameAtom } from '../../atoms/usernameAtom';

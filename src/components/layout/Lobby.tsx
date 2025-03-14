@@ -9,9 +9,11 @@ const Lobby: React.FC = () => {
 		<>
 			<div className="lobby">
 				<h2 className={styles.welcome_title}>Lobby 🌞</h2>
-				<>
-					<h2>Welcome to Chat app {username}!</h2>
-				</>
+				<div className={styles.lobby_content}>
+					<h3 className={styles.welcome}>
+						Welcome to Chat app {username}!
+					</h3>
+				</div>
 			</div>
 		</>
 	);

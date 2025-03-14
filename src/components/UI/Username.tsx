@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../../styles/Username.module.css';
 import Modal from './Modal';
+import animationStyle from '../../styles/Animation.module.css';
 
 interface UsernameProps {
 	username: string;
@@ -29,10 +30,10 @@ const Username: React.FC<UsernameProps> = ({
 	if (!username) return null;
 
 	return (
-		<div className={styles.username}>
+		<div className={`${styles.username}`}>
 			<p>{getConnectionStatus()}</p>
 			<span
-				className={styles.edit_username}
+				className={`${styles.edit_username} ${animationStyle.glow}`}
 				onClick={() => setEditUsername(true)}
 			>
 				(edit)
