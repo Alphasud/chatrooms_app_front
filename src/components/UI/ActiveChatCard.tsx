@@ -40,10 +40,11 @@ const ActiveChatCard: React.FC<ActiveChatCardProps> = ({
 				handleJoin(chatroom.chatroomId);
 			}}
 		>
-			{chatroom.chatroomId} ({chatroom.users.length})
-			<span className={styles.last_active}>
-				Active: {getLastTimeActive(chatroom.lastActiveAt)}
-			</span>
+			<div className={styles.chatroom_id}>{chatroom.chatroomId}</div>
+			<div className={styles.last_active}>
+				<div>{chatroom.users.length} users</div>
+				<div>Active: {getLastTimeActive(chatroom.lastActiveAt)}</div>
+			</div>
 		</div>
 	);
 };

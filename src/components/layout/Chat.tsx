@@ -122,6 +122,43 @@ const Chat: React.FC = () => {
 				<div ref={messagesEndRef} />
 			</div>
 			<div className={styles.controls_wrapper}>
+				<div className={styles.controls}>
+					<svg
+						style={{ width: 'auto', height: '80%' }}
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						width={24}
+						height={24}
+						strokeWidth={2}
+					>
+						{' '}
+						<path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>{' '}
+						<path d="M4 16l16 0"></path>{' '}
+						<path d="M4 12l3 -3c.928 -.893 2.072 -.893 3 0l4 4"></path>{' '}
+						<path d="M13 12l2 -2c.928 -.893 2.072 -.893 3 0l2 2"></path>{' '}
+						<path d="M14 7l.01 0"></path>{' '}
+					</svg>
+					<svg
+						style={{ width: 'auto', height: '80%' }}
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						width={24}
+						height={24}
+						strokeWidth={2}
+					>
+						{' '}
+						<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>{' '}
+						<path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3"></path>{' '}
+					</svg>
+				</div>
 				<input
 					className={styles.input}
 					type="text"
@@ -137,9 +174,10 @@ const Chat: React.FC = () => {
 				<button
 					className={styles.button_send}
 					style={{ opacity: input.length > 0 ? '1' : '0' }}
-					onClick={handleSend}
+					onClick={input.length > 0 ? handleSend : undefined}
 				>
 					<svg
+						style={{ width: '100%', height: '100%' }}
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
 						fill="none"

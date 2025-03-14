@@ -130,15 +130,23 @@
 }
 .controls_wrapper {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	width: 100%;
 	height: calc(100% - 2.5rem - 80%);
-	padding: 0 4rem;
+	padding: 0 1rem;
 	float: right;
 	color: #242424;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+}
+.controls {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	color: beige;
+	width: 10%;
+	height: 2.5rem;
 }
 .input {
 	background-color: transparent;
@@ -147,14 +155,17 @@
 	color: beige;
 	font-size: 0.75rem;
 	padding: 0.25rem;
+	height: 2.5rem;
 	font-style: italic;
-	margin-right: 1rem;
+	margin-right: 0.5rem;
 	outline: none;
 }
 .button_send {
 	background-color: transparent;
 	color: beige;
 	border: none;
+	height: 2.75rem;
+	width: 2.75rem;
 	border-radius: 5px;
 	padding: 0 0.25rem;
 	margin-top: 0.1rem;
@@ -194,16 +205,27 @@
 	border-radius: 5px;
 	width: 90%;
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	font-weight: bold;
+	transition: background-color 0.15s ease-in-out;
 }
 .chatroom_element:hover {
-	background-color: #242424;
-	color: white;
+	background-color: beige;
+	color: #242424;
 	cursor: pointer;
 }
+.chatroom_id {
+	align-self: flex-start;
+	font-size: 1rem;
+	font-style: italic;
+}
 .last_active {
+	width: 100%;
+	align-self: flex-end;
+	display: flex;
+	justify-content: space-between;
 	font-weight: 400;
 	font-size: 0.75rem;
 	font-style: italic;

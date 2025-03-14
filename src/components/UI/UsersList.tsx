@@ -30,13 +30,11 @@ const UsersList: React.FC<UserListProps> = ({
 			serverUsersList.map((user) => {
 				// Hash the username to create a unique seed for each user
 				const userSeed = stringToHash(user.username);
-
 				// Generate multiple random colors for each user based on their unique seed
 				const colors = Array.from(
 					{ length: 10 },
 					(_, index) => generateColorFromSeed(userSeed + index) // Modify seed for each color
 				);
-
 				return { ...user, colors: colors };
 			})
 		);

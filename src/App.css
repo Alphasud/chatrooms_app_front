@@ -2,7 +2,7 @@
 	height: 100%;
 	width: 100%;
 	margin: 0;
-	padding: 0;
+	padding: 0.5rem;
 }
 .main_layout {
 	height: 100%;
@@ -39,7 +39,7 @@
 	grid-column: 1 / 2;
 	grid-row: 2 / 5;
 	height: 100%;
-	width: calc(100% - 0.5rem);
+	width: 100%;
 	border: 2px solid beige;
 	border-radius: 10px;
 	display: flex;
