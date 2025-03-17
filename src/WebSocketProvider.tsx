@@ -23,10 +23,12 @@ export interface Chatroom {
 }
 
 export interface User {
+	clientId: string;
 	username: string;
 	chatroomId: string;
 	colorScheme: string[];
 	bubbleColor: string;
+	avatar: string;
 }
 
 // WebSocket Provider component

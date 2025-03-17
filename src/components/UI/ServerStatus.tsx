@@ -17,7 +17,7 @@ const ServerStatus: React.FC<ServerStatusProps> = ({
 		useAtom(displayUsersListAtom);
 
 	if (!isConnected) {
-		return <span>🔴 S3RV3R is down.</span>;
+		return <span className={styles.server_down}>🔴 S3RV3R is down.</span>;
 	}
 
 	const userCount = serverUsersList.length;

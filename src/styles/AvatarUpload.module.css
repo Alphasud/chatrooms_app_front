@@ -1,0 +1,26 @@
+.file_input {
+	display: none;
+}
+.avatar_bubble {
+	background-color: beige;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 1.5rem;
+	border-radius: 50%;
+	height: 3rem;
+	width: 3rem;
+	border: 2px solid beige;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.avatar_bubble:hover {
+	cursor: pointer;
+	filter: blur(0.75px);
+}
+.avatar {
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}

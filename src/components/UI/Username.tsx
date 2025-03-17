@@ -2,28 +2,45 @@ import { useState } from 'react';
 import styles from '../../styles/Username.module.css';
 import Modal from './Modal';
 import animationStyle from '../../styles/Animation.module.css';
+import AvatarUpload from './AvatarUpload';
+import styleAvatar from '../../styles/AvatarUpload.module.css';
 
 interface UsernameProps {
 	username: string;
 	setUsername: (username: string) => void;
 	isConnected: boolean;
+	clientId: string;
+	avatar: string;
 }
 
 const Username: React.FC<UsernameProps> = ({
 	username,
 	setUsername,
 	isConnected,
+	clientId,
+	avatar,
 }) => {
 	const [editUsername, setEditUsername] = useState(false);
 	const [usernameEdited, setUsernameEdited] = useState(username);
 
 	const getConnectionStatus = () => {
 		if (isConnected) {
-			return '🟢 Connected as ' + username;
+			return (
+				<>
+					<div className={styleAvatar.avatar_bubble}>
+						<img
+							className={styleAvatar.avatar}
+							src={`http://192.168.1.237:3001${avatar}`}
+							alt="Avatar"
+						/>
+					</div>
+					<p>{username}</p>
+				</>
+			);
 		} else if (!isConnected) {
-			return '🔴 Not Connected';
+			return <p>🔴 Not Connected</p>;
 		} else {
-			return '🟡 Connecting...';
+			return <p>🟡 Connecting...</p>;
 		}
 	};
 
@@ -31,7 +48,7 @@ const Username: React.FC<UsernameProps> = ({
 
 	return (
 		<div className={`${styles.username}`}>
-			<p>{getConnectionStatus()}</p>
+			{getConnectionStatus()}
 			<span
 				className={`${styles.edit_username} ${animationStyle.glow}`}
 				onClick={() => setEditUsername(true)}
@@ -43,6 +60,7 @@ const Username: React.FC<UsernameProps> = ({
 					show={editUsername}
 					onClose={() => setEditUsername(false)}
 				>
+					<AvatarUpload clientId={clientId} />
 					<input
 						className={styles.edit_input}
 						type="text"

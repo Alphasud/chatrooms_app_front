@@ -33,7 +33,9 @@
 }
 .close {
 	position: absolute;
+	font-style: normal;
 	right: 0;
+	color: beige;
 	top: -1rem;
 	padding: 0.5rem;
 	font-size: 2rem;
