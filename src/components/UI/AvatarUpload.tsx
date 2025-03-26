@@ -7,7 +7,7 @@ import { User } from '../../WebSocketProvider';
 import { userAtom } from '../../atoms/userAtom';
 
 const MAX_FILE_SIZE = 1024 * 1024; // 1mb
-const API_URL = 'http://192.168.1.237:3001';
+const API_URL = process.env.REACT_APP_API_URL;
 
 interface AvatarUploadProps {
 	clientId: string;
