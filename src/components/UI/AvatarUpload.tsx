@@ -18,11 +18,14 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ clientId }) => {
 	const { socket } = useWebSocket();
 	const [user, setUser] = useAtom<User | undefined>(userAtom);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
 			setFile(file);
+			const preview = URL.createObjectURL(file);
+			setPreviewUrl(preview);
 		}
 	};
 
@@ -59,12 +62,12 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ clientId }) => {
 	};
 
 	return (
-		<div>
+		<div className={styles.avatar_upload}>
 			<div className={styles.avatar_bubble}>
-				{user?.avatar ? (
+				{user?.avatar || file ? (
 					<img
-						className={styles.avatar}
-						src={`${API_URL}${user.avatar}`}
+						className={styles.avatar_pic}
+						src={previewUrl || `${API_URL}${user?.avatar}`}
 						alt="avatar"
 						onClick={() => fileInputRef.current?.click()}
 					/>
@@ -81,11 +84,47 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ clientId }) => {
 				accept="image/png, image/jpeg, image/jpg"
 				onChange={handleFileChange}
 			/>
-			<button className={styles.upload_button} onClick={handleUpload}>
-				Upload Avatar
+			<button
+				className={`${styles.avatar_buttons} ${styles.upload_button}`}
+				onClick={handleUpload}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					width={24}
+					height={24}
+					strokeWidth={2}
+				>
+					{' '}
+					<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>{' '}
+					<path d="M9 12l2 2l4 -4"></path>{' '}
+				</svg>
 			</button>
-			<button className={styles.delete_button} onClick={handleDelete}>
-				Delete Avatar
+			<button
+				className={`${styles.avatar_buttons} ${styles.delete_button}`}
+				onClick={handleDelete}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					width={24}
+					height={24}
+					strokeWidth={2}
+				>
+					{' '}
+					<path d="M4 7h16"></path>{' '}
+					<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>{' '}
+					<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>{' '}
+					<path d="M10 12l4 4m0 -4l-4 4"></path>{' '}
+				</svg>
 			</button>
 		</div>
 	);

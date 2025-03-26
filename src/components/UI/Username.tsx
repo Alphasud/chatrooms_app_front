@@ -5,6 +5,8 @@ import animationStyle from '../../styles/Animation.module.css';
 import AvatarUpload from './AvatarUpload';
 import styleAvatar from '../../styles/AvatarUpload.module.css';
 
+const API_URL = 'http://192.168.1.237:3001';
+
 interface UsernameProps {
 	username: string;
 	setUsername: (username: string) => void;
@@ -27,13 +29,21 @@ const Username: React.FC<UsernameProps> = ({
 		if (isConnected) {
 			return (
 				<>
-					<div className={styleAvatar.avatar_bubble}>
-						<img
-							className={styleAvatar.avatar}
-							src={`http://192.168.1.237:3001${avatar}`}
-							alt="Avatar"
-						/>
-					</div>
+					{avatar ? (
+						<div className={styleAvatar.avatar_bubble}>
+							<img
+								className={styleAvatar.avatar_pic}
+								src={API_URL + avatar}
+								alt="Avatar"
+							/>
+						</div>
+					) : (
+						<div
+							className={`${styleAvatar.avatar_bubble} ${styleAvatar.background_color}`}
+						>
+							<p>{username.charAt(0)}</p>
+						</div>
+					)}
 					<p>{username}</p>
 				</>
 			);
